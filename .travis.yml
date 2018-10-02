@@ -1,6 +1,6 @@
 ---
 install:
-  - pip install -e git+https://github.com/ansible/ansible.git@mazer_role_loader
+  - pip install -e git+https://github.com/ansible/ansible.git@mazer_role_loader#egg=ansible
 language: python
 python:
   - '3.6'
