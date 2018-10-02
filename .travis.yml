@@ -1,0 +1,18 @@
+---
+install:
+  - >
+      pip install -e
+      git+https://github.com/ansible/ansible.git@mazer_role_loader#egg=ansible
+  - >
+      pip install -e
+      git+https://github.com/ansible/mazer.git#egg=mazer
+  - >
+      mazer install edwardtheharris.jenkins.actual
+  - sudo mkdir -p /etc/ansible; sudo chmod a+rw /etc/ansible
+  - printf "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+language: python
+python:
+  - '3.6'
+script:
+  - ansible-playbook init.yml
+...
