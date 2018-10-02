@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "baaba41b291237b397d0c5df02c9d164665463ed92e720fa1cd1f1004c28ac96"
+            "sha256": "72e768a883c790fa4107bf0d6f014ccedfea1d30302432813d2ad7993ca8097f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -165,6 +165,12 @@
             ],
             "version": "==2.4.2"
         },
+        "pathspec": {
+            "hashes": [
+                "sha256:54a5eab895d89f342b52ba2bffe70930ef9f8d96e398cccf530d21fa0516a873"
+            ],
+            "version": "==0.5.9"
+        },
         "pyasn1": {
             "hashes": [
                 "sha256:b9d3abc5031e61927c82d4d96c1cec1e55676c1a991623cfed28faea73cdd7ca",
@@ -239,6 +245,14 @@
                 "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
             ],
             "version": "==1.11.0"
+        },
+        "yamllint": {
+            "hashes": [
+                "sha256:93e255e4bd96c7c0850bf182b09f6b35625130f15b37a0e03d8bf378d747081c",
+                "sha256:e9b7dec24921ef13180902e5dbcaae9157c773e3e3e2780ef77d3a4dd67d799f"
+            ],
+            "index": "pypi",
+            "version": "==1.11.1"
         },
         "yamlloader": {
             "hashes": [
