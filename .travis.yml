@@ -1,6 +1,13 @@
 ---
 install:
-  - pip install -e git+https://github.com/ansible/ansible.git@mazer_role_loader#egg=ansible
+  - >
+      pip install -e
+      git+https://github.com/ansible/ansible.git@mazer_role_loader#egg=ansible
+  - >
+      pip install -e
+      git+https://github.com/ansible/mazer.git
+  - >
+      mazer install edwardtheharris.jenkins.actual
 language: python
 python:
   - '3.6'
