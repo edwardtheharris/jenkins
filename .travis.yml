@@ -9,7 +9,7 @@ install:
   - >
       mazer install edwardtheharris.jenkins.actual
   - sudo mkdir -p /etc/ansible; sudo chmod a+rw /etc/ansible
-  - printf "[local]\nlocalhost" > /etc/ansible/hosts
+  - printf "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 language: python
 python:
   - '3.6'
