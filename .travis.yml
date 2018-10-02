@@ -1,9 +1,9 @@
 ---
 install:
-  - pip install ansible
+  - pip install https://github.com/ansible/ansible/archive/mazer_role_loader.zip
 language: python
 python:
   - '3.6'
 script:
-  - ansible-playbook roles/actual/tasks/main.yml
+  - ansible-playbook init.yml
 ...
