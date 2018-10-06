@@ -1,0 +1,6 @@
+---
+- src: git@github.com:edwardtheharris/jenkins.git
+  scm: git
+  version: 7-Deploy-Jenkins-to-Linode
+  name: edwardtheharris.jenkins
+...
