@@ -1,2 +1,11 @@
 ---
+- name: Create a new Linode
+  linode:
+    name: jenkins-actual
+    plan: 1
+    datacenter: 7
+    distribution: 129
+    state: present
+  register: linode_creation
 # tasks file for actual
+...
