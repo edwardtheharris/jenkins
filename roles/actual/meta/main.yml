@@ -2,7 +2,7 @@
 galaxy_info:
   author: Xander Harris
   description: Deploy Jenkins Master Node to Linode.
-  company: your company (optional)
+  company: Gahan Corporation
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
@@ -13,7 +13,7 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: Unlicense
+  license: BSD
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
   # Galaxy will use this branch. During import Galaxy will access files on
