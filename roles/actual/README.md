@@ -1,12 +1,12 @@
-APB Name
-=========
+Jenkins Master Node
+===================
 
-A brief description of the APB goes here.
+Deploys to Linode a Jenkins Master node with the name jenkins-actual.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This requires a [special fork](https://github.com/edwardtheharris/ansible) of [Ansible](https://github.com/ansible/ansible) located [here](https://github.com/edwardtheharris/ansible).
 
 APB Variables
 --------------
@@ -23,9 +23,11 @@ Example Playbook
 
 Including an example of how to use your APB (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: servers
+  roles:
+     - { role: edwardtheharris.jenkins, variable_name: 42 }
+```
 
 License
 -------
@@ -35,4 +37,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Xander Harris is a DevOps Engineer with a terrible habbit of doing too much accounting.

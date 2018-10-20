@@ -2,5 +2,5 @@
 - hosts: localhost
   roles:
     - edwardtheharris.jenkins.actual
-    - edwardtheharris.jenkins.alpha
+    # - edwardtheharris.jenkins.alpha
 ...
