@@ -1,17 +1,16 @@
 ---
-- debug:
-    var: hostvars.localhost
 - name: Make sure sudo is available.
   pacman:
     update_cache: "yes"
-    name: sudo
+    name: sudo,docker,git
     state: present
 - name: Create a user.
   user:
     name: duchess
     shell: /bin/bash
     home: /home/duchess
-    group: wheel
+    group: docker
+    groups: wheel
 - name: Add authorized key to new user.
   authorized_key:
     user: duchess
@@ -35,4 +34,29 @@
   service:
     name: sshd
     state: restarted
+- name: Copy Docker service.
+  copy:
+    src: docker.service
+    dest: /lib/systemd/system/docker.service
+- name: Start Docker daemon.
+  service:
+    name: docker
+    state: started
+    enabled: "yes"
+- name: Download pip install.
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
+- name: Install pip.
+  command: python /tmp/get-pip.py
+- name: Install Docker Python module.
+  pip:
+    state: present
+    name: docker
+- name: Create roles directory.
+  file:
+    dest: /opt/roles/
+    owner: duchess
+    group: docker
+    state: directory
 ...
