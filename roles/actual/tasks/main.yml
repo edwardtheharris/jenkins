@@ -1,15 +1,4 @@
 ---
-- name: Create a user for daily use.
-  include_tasks:
-    file: user.yml
-    apply:
-      tags:
-        - user
-      remote_user: root
-      delegate_to: "{{ hostvars.localhost.master_host }}"
-      run_once: "yes"
-  tags:
-    - user
 - name: Include Docker tasks.
   include_tasks:
     file: docker.yml
