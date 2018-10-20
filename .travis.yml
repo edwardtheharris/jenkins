@@ -16,6 +16,7 @@ install:
   - ansible --version
 script:
   # Basic role syntax check
+  - ls -l
   - >
       ansible-playbook
       roles/actual/tests/test.yml -i
