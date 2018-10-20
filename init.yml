@@ -10,5 +10,8 @@
 - hosts: jenkins
   roles:
     - edwardtheharris.jenkins.actual
+  vars:
+    jenkins_hostname: jenkins.gahancorporation.com
+    domain: gahancorporation.com
     # - edwardtheharris.jenkins.alpha
 ...

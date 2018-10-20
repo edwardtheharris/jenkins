@@ -1,45 +1,29 @@
 ---
-- name: Copy the Jenkins NGINX config.
-  template:
-    src: nginx.jenkins.j2
-    dest: /opt/roles/jenkins-actual/files/nginx/conf.d/default.conf
-- name: Start NGINX Alpine container.
-  docker_container:
-    name: nginx
-    image: nginx:alpine
-    hostname: "nginx.{{ master_host }}"
-    state: started
-    restart_policy: always
-    volumes:
-      - /opt/roles/jenkins-actual/files/nginx:/etc/nginx:rw
-    published_ports:
-      - 80:80
-      - 443:443
-    networks:
-      - name: jenkins
-- name: Install Python on NGINX container.
-  command: docker exec --user root nginx apk add --no-cache python
-- name: Include Jenkins tasks.
-  include_tasks:
-    file: jenkins.yml
-    apply:
-      tags:
-        - jenkins
-      delegate_to: "{{ hostvars.localhost.master_host }}"
-      become: "yes"
-  tags:
-    - jenkins
 - name: Create Jenkins home directory.
   git:
-    repo: "{{ hostvars.localhost.jenkins_repo }}"
-    dest: /opt/roles/jenkins-actual
+    repo: https://github.com/edwardtheharris/jenkins
+    dest: /opt/roles/jenkins
+    force: "yes"
 - name: Create the Jenkins Docker network.
   docker_network:
     name: jenkins
-- name: Create the jenkins_home volume.
+- name: Create Docker volumes.
   docker_volume:
-    name: jenkins_home
+    name: "{{ item }}"
     state: present
+  loop:
+    - nginx_conf
+    - jenkins_home
+- name: Copy nginx conf volume.
+  copy:
+    src: files/nginx/
+    dest: /var/lib/docker/volumes/nginx_conf/_data/
+  become: "yes"
+- name: Copy the Jenkins NGINX config.
+  template:
+    src: nginx.jenkins.j2
+    dest: /var/lib/docker/volumes/nginx_conf/_data/conf.d/default.conf
+  become: "yes"
 - name: Start Jenkins Alpine container.
   docker_container:
     name: "{{ jenkins_hostname }}"
@@ -57,21 +41,20 @@
   command: >
            docker exec --user root {{ jenkins_hostname }}
            apk add --no-cache python
-- name: Add container to inventory.
-  add_host:
-    name: "{{ jenkins_hostname }}"
-    groups:
-      - jenkins.containers
-    ansible_connection: docker
-    ansible_host: "tcp://{{ hostvars.localhost.master_host }}:8008"
-    ansible_user: root
-- name: Update container config.
-  include_tasks:
-    file: container-config.yml
-    apply:
-      tags:
-        - jenkins
-      delegate_to: "{{ jenkins_hostname }}"
-  tags:
-    - jenkins
+- name: Start NGINX Alpine container.
+  docker_container:
+    name: nginx
+    image: nginx:alpine
+    hostname: nginx
+    state: started
+    restart_policy: always
+    volumes:
+      - nginx_conf:/etc/nginx
+    published_ports:
+      - 80:80
+      - 443:443
+    networks:
+      - name: jenkins
+- name: Install Python on NGINX container.
+  command: docker exec --user root nginx apk add --no-cache python
 ...
