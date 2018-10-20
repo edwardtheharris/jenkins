@@ -4,6 +4,9 @@
     - edwardtheharris.jenkins.linode
 - hosts: jenkins
   roles:
+    - edwardtheharris.jenkins.common
+- hosts: jenkins
+  roles:
     - edwardtheharris.jenkins.actual
     # - edwardtheharris.jenkins.alpha
 ...
