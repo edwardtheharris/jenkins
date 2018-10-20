@@ -45,7 +45,7 @@
   docker_container:
     name: nginx
     image: nginx:alpine
-    hostname: "nginx.{{ master_host }}"
+    hostname: nginx
     state: started
     restart_policy: always
     volumes:
