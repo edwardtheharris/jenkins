@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - edwardtheharris.jenkins.linode
     - edwardtheharris.jenkins.actual
-    - edwardtheharris.jenkins.alpha
+    # - edwardtheharris.jenkins.alpha
 ...

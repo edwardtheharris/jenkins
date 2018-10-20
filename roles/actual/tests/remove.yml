@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+    linode:
+      state: absent

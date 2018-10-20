@@ -1,0 +1,47 @@
+---
+- name: Create Jenkins home directory.
+  git:
+    repo: "{{ hostvars.localhost.jenkins_repo }}"
+    dest: /opt/roles/jenkins-actual
+- name: Create the Jenkins Docker network.
+  docker_network:
+    name: jenkins
+- name: Create the jenkins_home volume.
+  docker_volume:
+    name: jenkins_home
+    state: present
+- name: Start Jenkins Alpine container.
+  docker_container:
+    name: "{{ jenkins_hostname }}"
+    image: jenkins/jenkins:alpine
+    hostname: "{{ jenkins_hostname }}"
+    state: started
+    restart_policy: always
+    volumes:
+      - jenkins_home
+    published_ports:
+      - 8080:8080
+    networks:
+      - name: jenkins
+- name: Install Python on Jenkins container.
+  command: >
+           docker exec --user root {{ jenkins_hostname }}
+           apk add --no-cache python
+- name: Add container to inventory.
+  add_host:
+    name: "{{ jenkins_hostname }}"
+    groups:
+      - jenkins.containers
+    ansible_connection: docker
+    ansible_host: "tcp://{{ hostvars.localhost.master_host }}:8008"
+    ansible_user: root
+- name: Update container config.
+  include_tasks:
+    file: container-config.yml
+    apply:
+      tags:
+        - jenkins
+      delegate_to: "{{ jenkins_hostname }}"
+  tags:
+    - jenkins
+...

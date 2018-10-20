@@ -1,0 +1,22 @@
+---
+- name: Copy the Jenkins NGINX config.
+  template:
+    src: nginx.jenkins.j2
+    dest: /opt/roles/jenkins-actual/files/nginx/conf.d/default.conf
+- name: Start NGINX Alpine container.
+  docker_container:
+    name: nginx
+    image: nginx:alpine
+    hostname: "nginx.{{ master_host }}"
+    state: started
+    restart_policy: always
+    volumes:
+      - /opt/roles/jenkins-actual/files/nginx:/etc/nginx:rw
+    published_ports:
+      - 80:80
+      - 443:443
+    networks:
+      - name: jenkins
+- name: Install Python on NGINX container.
+  command: docker exec --user root nginx apk add --no-cache python
+...

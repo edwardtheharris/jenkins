@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<com.synopsys.arc.jenkins.plugins.ownership.OwnershipPlugin plugin="ownership@0.12.1">
+  <requiresConfigureRights>false</requiresConfigureRights>
+  <pluginActions/>
+  <configuration>
+    <itemOwnershipPolicy class="com.synopsys.arc.jenkins.plugins.ownership.extensions.item_ownership_policy.DropOwnershipPolicy"/>
+    <mailOptions>
+      <contactOwnersLinkDisabled>false</contactOwnersLinkDisabled>
+      <contactAdminsLinkDisabled>false</contactAdminsLinkDisabled>
+      <emailListSeparator>;</emailListSeparator>
+      <hideOwnerAndCoOwnerEmails>false</hideOwnerAndCoOwnerEmails>
+    </mailOptions>
+    <displayOptions>
+      <hideRunOwnership>false</hideRunOwnership>
+      <hideOwnershipIfNoData>false</hideOwnershipIfNoData>
+    </displayOptions>
+    <inheritanceOptions>
+      <blockInheritanceFromItemGroups>false</blockInheritanceFromItemGroups>
+    </inheritanceOptions>
+  </configuration>
+</com.synopsys.arc.jenkins.plugins.ownership.OwnershipPlugin>

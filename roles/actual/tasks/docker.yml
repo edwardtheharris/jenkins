@@ -1,0 +1,37 @@
+---
+- name: Install Docker and other utilities.
+  pacman:
+    name: docker,git
+    state: present
+    update_cache: "yes"
+- name: Update user group.
+  user:
+    name: duchess
+    groups: docker
+    append: "yes"
+- name: Copy Docker service.
+  copy:
+    src: docker.service
+    dest: /lib/systemd/system/docker.service
+- name: Start Docker daemon.
+  service:
+    name: docker
+    state: started
+    enabled: "yes"
+- name: Download pip install.
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
+- name: Install pip.
+  command: python /tmp/get-pip.py
+- name: Install Docker Python module.
+  pip:
+    state: present
+    name: docker
+- name: Create roles directory.
+  file:
+    dest: /opt/roles/
+    owner: duchess
+    group: docker
+    state: directory
+...
