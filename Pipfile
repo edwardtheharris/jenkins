@@ -7,6 +7,7 @@ name = "pypi"
 "74bbbc3" = {editable = true, path = "./../ansible"}
 mazer = {editable = true, path = "./../mazer"}
 yamllint = "*"
+linode-python = "*"
 
 [dev-packages]
 
