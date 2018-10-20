@@ -1,0 +1,43 @@
+---
+- name: Create a user for daily use.
+  include_tasks:
+    file: user.yml
+    apply:
+      tags:
+        - user
+      remote_user: root
+      delegate_to: "{{ hostvars.localhost.master_host }}"
+      run_once: "yes"
+  tags:
+    - user
+- name: Include Docker tasks.
+  include_tasks:
+    file: docker.yml
+    apply:
+      tags:
+        - docker
+      become: "yes"
+      delegate_to: "{{ hostvars.localhost.master_host }}"
+  tags:
+    - docker
+- name: Include Jenkins tasks.
+  include_tasks:
+    file: jenkins.yml
+    apply:
+      tags:
+        - jenkins
+      delegate_to: "{{ hostvars.localhost.master_host }}"
+      become: "yes"
+  tags:
+    - jenkins
+- name: Start NGINX
+  include_tasks:
+    file: nginx.yml
+    apply:
+      tags:
+        - nginx
+      delegate_to: "{{ hostvars.localhost.master_host }}"
+      become: "no"
+  tags:
+    - nginx
+...

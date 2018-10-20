@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  roles:
+    - jenkins-actual
+  remote_user: duchess
+  tags:
+    - setup
+...
