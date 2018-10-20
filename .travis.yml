@@ -13,8 +13,7 @@ install:
   - pip install -e ansible/
   - pip install git+https://github.com/ansible/mazer.git
   - . ansible/hacking/env-setup
-  # Check ansible version
-  - ansible --version
+  - ansible-galaxy install edwardtheharris.jenkins
 script:
   # Basic role syntax check
   - ls -l roles/actual/
