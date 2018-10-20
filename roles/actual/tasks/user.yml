@@ -1,0 +1,38 @@
+---
+- debug:
+    var: hostvars.localhost
+- name: Make sure sudo is available.
+  pacman:
+    update_cache: "yes"
+    name: sudo
+    state: present
+- name: Create a user.
+  user:
+    name: duchess
+    shell: /bin/bash
+    home: /home/duchess
+    group: wheel
+- name: Add authorized key to new user.
+  authorized_key:
+    user: duchess
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+    state: present
+- name: Set the hostname.
+  hostname:
+    name: "{{ jenkins_hostname }}"
+- name: Copy updated sudoers.
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
+- name: Copy updated sshd.
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/ssh/{{ item }}"
+  loop:
+    - ssh_config
+    - sshd_config
+- name: Restart sshd service.
+  service:
+    name: sshd
+    state: restarted
+...

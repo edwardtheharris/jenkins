@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
-  connection: local
   roles:
-    - edwardtheharris.jenkins.actual
+    - edwardtheharris.jenkins.actual 
+  remote_user: duchess
+  tags:
+    - setup
 ...
