@@ -11,6 +11,7 @@ install:
       git clone --single-branch -b mazer_role_loader
       https://github.com/edwardtheharris/ansible
   - pip install -e ansible/
+  - pip install git+https://github.com/ansible/mazer.git
   - . ansible/hacking/env-setup
   # Check ansible version
   - ansible --version
