@@ -1,0 +1,7 @@
+---
+- hosts: jenkins
+  roles:
+    - edwardtheharris.jenkins.common
+  vars:
+    jenkins_hostname: jenkins.gahancorporation.com
+...
