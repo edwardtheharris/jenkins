@@ -1,5 +1,5 @@
 ---
-- name: Make sure sudo is available.
+- name: Install some utilities. 
   pacman:
     update_cache: "yes"
     name: sudo,docker,git
