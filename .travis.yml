@@ -7,7 +7,9 @@ addons:
       - python-pip
 install:
   # Install ansible
-  - pip install ansible
+  - >
+      git clone --single-branch -b mazer_role_loader
+      https://github.com/edwardtheharris/ansible 
   # Check ansible version
   - ansible --version
   # Create ansible.cfg with correct roles_path
