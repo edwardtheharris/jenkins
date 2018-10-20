@@ -1,11 +1,11 @@
 server {
     listen       80;
-    server_name  {{ master_host }};
+    server_name  {{ jenkins_hostname }};
 
   #this is the jenkins web root directory (mentioned in the /etc/default/jenkins file)
   location / {
       sendfile off;
-      proxy_pass         http://{{ master_host }}:8080;
+      proxy_pass         http://{{ jenkins_hostname }}:8080;
       proxy_redirect     default;
       proxy_http_version 1.1;
 
