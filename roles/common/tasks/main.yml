@@ -34,11 +34,6 @@
   service:
     name: sshd
     state: restarted
-- name: Update user group.
-  user:
-    name: duchess
-    groups: docker
-    append: "yes"
 - name: Copy Docker service.
   copy:
     src: docker.service
