@@ -1,5 +1,5 @@
 ---
-- name: Install some utilities. 
+- name: Install some utilities.
   pacman:
     update_cache: "yes"
     name: sudo,docker,git
@@ -34,10 +34,6 @@
   service:
     name: sshd
     state: restarted
-- name: Copy Docker service.
-  copy:
-    src: docker.service
-    dest: /lib/systemd/system/docker.service
 - name: Start Docker daemon.
   service:
     name: docker
