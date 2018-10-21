@@ -1,5 +1,8 @@
 #!/usr/bin/python
 """Module for manging Linode domains."""
+import os
+import linode_api4
+from linode_api4 import Domain
 from ansible.module_utils.basic import AnsibleModule
 
 ANSIBLE_METADATA = {
@@ -63,9 +66,44 @@ message:
 '''
 
 
+def add_subdomain(module, client):
+    """Create a subdomain."""
+    domain = client.domains(Domain.domain == module.params.get('domain'))[0]
+
+    subdomain = domain.record_create('A',
+                                     target=module.params.get('target'),
+                                     name=module.params.get('name'),
+                                     ttl_sec=300)
+
+    return {
+        'changed': True,
+        'domain': domain.domain,
+        'subdomain': subdomain.name,
+        'ttl_sec': subdomain.ttl_sec
+    }
+
+
+def del_subdomain(module, client):
+    """Delete a subdomain."""
+    subdomains = client.domains(
+        Domain.domain == module.params.get('domain'))[0]
+
+    for subd in subdomains:
+        if subd.name == module.params.get('name'):
+            subd.delete()
+
+    return {
+        'changed': True,
+        'subdomain': module.params.get('name')
+    }
+
+
 def linode_domain():
     """Add or remove a Linode domain."""
     module_args = {
+        'domain': {
+            'type': 'str'
+        },
         'name': {
             'type': 'str',
             'required': True,
@@ -74,33 +112,38 @@ def linode_domain():
             'type': 'str',
             'required': True,
             'choices': ['absent', 'present']
+        },
+        'type': {
+            'type': 'str',
+            'choices': ['domain', 'subdomain']
+        },
+        'target': {
+            'type': 'str'
         }
     }
 
     result = {'changed': False,
-              'original_message': '',
-              'message': ''}
+              'subdomain': '',
+              'domain': '',
+              'target': ''}
 
     module = AnsibleModule(
         argument_spec=module_args,
         supports_check_mode=True
     )
 
-    # if the user is working with this module in only check mode we do not
-    # want to make any changes to the environment, just return the current
     # state with no modifications
     if module.check_mode:
         module.exit_json(**result)
 
-    # manipulate or modify the state as needed (this is going to be the
-    # part where your module will do what it needs to do)
-    result['original_message'] = module.params['name']
-    result['message'] = 'goodbye'
+    client = linode_api4.LinodeClient(os.environ.get('LINODE_TOKEN'))
+
+    result = add_subdomain(module, client)
 
     # use whatever logic you need to determine whether or not this module
     # made any modifications to your target
-    if module.params['new']:
-        result['changed'] = True
+    # if module.params['new']:
+    #    result['changed'] = True
 
     # during the execution of the module, if there is an exception or a
     # conditional state that effectively causes a failure, run

@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+    - linode_domain:
+        domain: deathpactone.org
+        name: jenkins
+        type: subdomain
+        state: present
+        target: 45.79.66.115
+...
