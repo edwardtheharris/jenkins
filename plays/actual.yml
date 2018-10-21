@@ -5,4 +5,5 @@
     - edwardtheharris.jenkins.actual
   vars:
     master_host: "{{ inventory_hostname }}"
+    jenkins_hostname: jenkins.deathpactone.org
 ...

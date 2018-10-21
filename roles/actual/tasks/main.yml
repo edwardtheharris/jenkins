@@ -24,6 +24,13 @@
     src: nginx.jenkins.j2
     dest: /var/lib/docker/volumes/nginx_conf/_data/conf.d/default.conf
   become: "yes"
+- name: Copy Jenkins configs.
+  copy:
+    src: files/jenkins/
+    dest: /var/lib/docker/volumes/jenkins_home/_data/
+    owner: duchess
+    group: docker
+  become: "yes"
 - name: Start Jenkins Alpine container.
   docker_container:
     name: "{{ jenkins_hostname }}"
