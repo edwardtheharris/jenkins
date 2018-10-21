@@ -1,0 +1,16 @@
+---
+- name: Create Docker volumes.
+  docker_volume:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - nginx_conf
+    - jenkins_home
+
+- name: Update ownership for volume.
+  file:
+    dest: /var/lib/docker/volumes/jenkins_home/_data
+    state: directory
+    owner: duchess
+  become: "yes"
+...

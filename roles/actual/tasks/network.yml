@@ -1,0 +1,5 @@
+---
+- name: Create the Jenkins Docker network.
+  docker_network:
+    name: jenkins
+...

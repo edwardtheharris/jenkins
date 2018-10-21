@@ -1,53 +1,28 @@
 ---
-- name: Create the Jenkins Docker network.
-  docker_network:
-    name: jenkins
-- name: Create Docker volumes.
-  docker_volume:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - nginx_conf
-    - jenkins_home
-- name: Update ownership for volume.
-  file:
-    dest: /var/lib/docker/volumes/jenkins_home/_data
-    state: directory
-    owner: duchess
-  become: "yes"
-- name: Start Jenkins Alpine container.
-  docker_container:
-    name: "{{ jenkins_hostname }}"
-    image: jenkins/jenkins:alpine
-    hostname: "{{ jenkins_hostname }}"
-    state: started
-    restart_policy: always
-    volumes:
-      - jenkins_home:/var/jenkins_home:rw
-    exposed_ports:
-      - 8080:8080
-    networks:
-      - name: jenkins
-- name: Install Python on Jenkins container.
-  command: >
-             docker exec --user root {{ jenkins_hostname }}
-             apk add --no-cache python
-- name: Template playbook.
-  template:
-    src: jenkins.j2
-    dest: /tmp/jenkins.yml
-- name: Execute playbook.
-  command: ansible-playbook /tmp/jenkins.yml
+- name: Configure Docker network.
+  include_tasks: network.yml
+
+- name: Configure Docker volumes.
+  include_tasks: volumes.yml
+
+- name: Start the Jenkins container.
+  include_tasks: container.yml
+
+- name: Run playbook on remote.
+  include_tasks: playbook.yml
+
 - name: Copy nginx conf volume.
   copy:
     src: files/nginx/
     dest: /var/lib/docker/volumes/nginx_conf/_data/
   become: "yes"
+
 - name: Copy the Jenkins NGINX config.
   template:
     src: nginx.jenkins.j2
     dest: /var/lib/docker/volumes/nginx_conf/_data/conf.d/default.conf
   become: "yes"
+
 - name: Start NGINX Alpine container.
   docker_container:
     name: nginx
@@ -62,6 +37,7 @@
       - 443:443
     networks:
       - name: jenkins
+
 - name: Install Python on NGINX container.
   command: docker exec --user root nginx apk add --no-cache python
 ...

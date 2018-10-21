@@ -1,0 +1,19 @@
+---
+- name: Start Jenkins Alpine container.
+  docker_container:
+    name: "{{ jenkins_hostname }}"
+    image: jenkins/jenkins:alpine
+    hostname: "{{ jenkins_hostname }}"
+    state: started
+    restart_policy: always
+    volumes:
+      - jenkins_home:/var/jenkins_home:rw
+    exposed_ports:
+      - 8080:8080
+    networks:
+      - name: jenkins
+- name: Install Python on Jenkins container.
+  command: >
+             docker exec --user root {{ jenkins_hostname }}
+             apk add --no-cache python
+...

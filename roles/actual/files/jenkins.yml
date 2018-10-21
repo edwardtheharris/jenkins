@@ -1,6 +1,6 @@
 ---
 - name: Configure the Jenkins container.
-  hosts: "{{ jenkins_hostname }}"
+  hosts: all
   tasks:
     - name: Install Docker in Jenkins container.
       apk:
