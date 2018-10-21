@@ -11,8 +11,6 @@
   docker_volume:
     name: "{{ item }}"
     state: present
-    labels:
-      - service: jenkins
   loop:
     - nginx_conf
     - jenkins_home
