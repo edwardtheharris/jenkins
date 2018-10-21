@@ -114,10 +114,6 @@ def linode_domain():
             'required': True,
             'choices': ['absent', 'present']
         },
-        'type': {
-            'type': 'str',
-            'choices': ['domain', 'subdomain']
-        },
         'target': {
             'type': 'str'
         }
