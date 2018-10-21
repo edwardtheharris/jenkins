@@ -1,10 +1,4 @@
 ---
-- name: Add a subdomain.
-  linode_domain:
-    state: present
-    domain: "{{ jenkins_domain }}"
-    name: 'jenkins'
-    target: "{{ inventory_hostname }}"
 - name: Create Jenkins home directory.
   git:
     repo: https://github.com/edwardtheharris/jenkins
@@ -18,7 +12,7 @@
     name: "{{ item }}"
     state: present
     labels:
-      - jenkins
+      service: jenkins
   loop:
     - nginx_conf
     - jenkins_home
