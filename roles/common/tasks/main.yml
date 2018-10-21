@@ -2,8 +2,9 @@
 - name: Install some utilities.
   pacman:
     update_cache: "yes"
-    name: sudo,docker,git
+    name: sudo,docker,git,bash-completion
     state: present
+    upgrade: "yes"
 - name: Create a user.
   user:
     name: duchess
