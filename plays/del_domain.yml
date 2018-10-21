@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+    - linode_domain:
+        state: absent
+        name: jenkins
+        domain: deathpactone.org
+...
