@@ -14,6 +14,11 @@
   loop:
     - nginx_conf
     - jenkins_home
+- name: Copy the Jenkins config.
+  copy:
+    src: jenkins_home/
+    dest: /var/lib/docker/volumes/jenkins_home/_data
+  become: "yes"
 - name: Copy nginx conf volume.
   copy:
     src: files/nginx/
@@ -32,7 +37,7 @@
     state: started
     restart_policy: always
     volumes:
-      - jenkins_home
+      - jenkins_home:/var/jenkins_home
     published_ports:
       - 8080:8080
     networks:
