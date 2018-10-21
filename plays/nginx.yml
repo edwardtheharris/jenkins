@@ -1,0 +1,25 @@
+
+- hosts: localhost
+  tasks:
+    - add_host:
+        name: nginx
+        ansible_connection: docker
+- hosts: nginx
+  tasks:
+    - copy:
+        src: /opt/roles/jenkins/roles/actual/files/nginx/
+        dest: /etc/nginx
+    - template:
+        src: /opt/roles/jenkins/roles/actual/templates/nginx.jenkins.j2
+        dest: /etc/nginx/conf.d/default.conf
+  vars:
+    jenkins_hostname: jenkins.cody.dp
+- hosts: localhost
+  tasks:
+    - docker_container:
+        name: nginx
+        state: stopped
+    - docker_container:
+        name: nginx
+        state: started
+...

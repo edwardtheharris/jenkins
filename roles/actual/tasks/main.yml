@@ -32,6 +32,12 @@
   command: >
              docker exec --user root {{ jenkins_hostname }}
              apk add --no-cache python
+- name: Template playbook.
+  template:
+    src: jenkins.j2
+    dest: /tmp/jenkins.yml
+- name: Execute playbook.
+  command: ansible-playbook /tmp/jenkins.yml
 - name: Copy nginx conf volume.
   copy:
     src: files/nginx/

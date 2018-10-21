@@ -1,6 +1,30 @@
 ---
 - hosts: jenkins.cody.dp
   tasks:
+    - copy:
+        src: "/opt/roles/jenkins/roles/actual/files/jenkins/{{ item }}"
+        dest: /var/jenkins_home/
+      loop: "{{ jenkins_configs }}"
+  vars:
+    jenkins_configs:
+      - config.xml
+      - hudson.tasks.Shell.xml
+      - jenkins.model.JenkinsLocationConfiguration.xml
+- hosts: localhost
+  tasks:
+    - docker_container:
+        name: jenkins.cody.dp
+        state: stopped
+    - docker_container:
+        name: jenkins.cody.dp
+        state: started
+- hosts: jenkins.cody.dp
+  tasks:
+    - wait_for:
+        host: jenkins.cody.dp
+        state: started
+        port: 8080
     - jenkins_script:
         script: 'println(Jenkins.instance.pluginManager.plugins)'
-        url: http://jenkins.cody.dp/
+        url: http://jenkins.cody.dp:8080/
+...
