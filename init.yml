@@ -8,6 +8,7 @@
   vars:
     jenkins_hostname: jenkins.gahancorporation.com
 - hosts: jenkins
+  remote_user: duchess
   roles:
     - edwardtheharris.jenkins.actual
   vars:
