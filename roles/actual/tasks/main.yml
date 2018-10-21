@@ -12,7 +12,7 @@
     name: "{{ item }}"
     state: present
     labels:
-      service: jenkins
+      - service: jenkins
   loop:
     - nginx_conf
     - jenkins_home
