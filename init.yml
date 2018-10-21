@@ -6,13 +6,20 @@
   roles:
     - edwardtheharris.jenkins.common
   vars:
-    jenkins_hostname: jenkins.gahancorporation.com
+    jenkins_hostname: jenkins.deathpactone.org
 - hosts: jenkins
   remote_user: duchess
+  pre_tasks:
+    - name: Add a subdomain.
+      linode_domain:
+        state: present
+        domain: deathpactone.org
+        name: 'jenkins'
+        target: "{{ inventory_hostname }}"
+      delegate_to: localhost
   roles:
     - edwardtheharris.jenkins.actual
   vars:
-    jenkins_hostname: jenkins.gahancorporation.com
-    domain: gahancorporation.com
+    jenkins_hostname: jenkins.deathpactone.org
     # - edwardtheharris.jenkins.alpha
 ...
