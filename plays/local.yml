@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  roles:
+    - edwardtheharris.jenkins.actual
+  vars:
+    jenkins_hostname: jenkins.cody.dp
+...
