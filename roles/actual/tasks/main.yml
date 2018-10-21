@@ -1,9 +1,4 @@
 ---
-- name: Create Jenkins home directory.
-  git:
-    repo: https://github.com/edwardtheharris/jenkins
-    dest: /opt/roles/jenkins
-    force: "yes"
 - name: Create the Jenkins Docker network.
   docker_network:
     name: jenkins
@@ -27,9 +22,8 @@
 - name: Copy Jenkins configs.
   copy:
     src: files/jenkins/
-    dest: /var/lib/docker/volumes/jenkins_home/_data/
+    dest: /var/lib/docker/volumes/jenkins_home/_data
     owner: duchess
-    group: docker
   become: "yes"
 - name: Start Jenkins Alpine container.
   docker_container:
