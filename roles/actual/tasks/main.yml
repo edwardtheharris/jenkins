@@ -32,10 +32,6 @@
   command: >
              docker exec --user root {{ jenkins_hostname }}
              apk add --no-cache python
-- name: Add Jenkins container to inventory.
-  add_host:
-    name: "{{ jenkins_hostname }}"
-    ansible_connection: docker
 - name: Copy nginx conf volume.
   copy:
     src: files/nginx/

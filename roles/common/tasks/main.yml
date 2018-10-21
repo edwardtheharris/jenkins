@@ -49,7 +49,8 @@
 - name: Install Docker Python module.
   pip:
     state: present
-    name: docker
+    name: "{{ item }}"
+  loop: "{{ python_modules }}"
 - name: Create roles directory.
   file:
     dest: /opt/roles/
