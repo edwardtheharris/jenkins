@@ -85,15 +85,16 @@ def add_subdomain(module, client):
 
 def del_subdomain(module, client):
     """Delete a subdomain."""
-    subdomains = client.domains(
+    changed = False
+    domain = client.domains(
         Domain.domain == module.params.get('domain'))[0]
 
-    for subd in subdomains:
+    for subd in domain.records:
         if subd.name == module.params.get('name'):
-            subd.delete()
+            changed = subd.delete()
 
     return {
-        'changed': True,
+        'changed': changed,
         'subdomain': module.params.get('name')
     }
 
@@ -122,6 +123,11 @@ def linode_domain():
         }
     }
 
+    execute = {
+        'absent': del_subdomain,
+        'present': add_subdomain
+    }
+
     result = {'changed': False,
               'subdomain': '',
               'domain': '',
@@ -138,7 +144,7 @@ def linode_domain():
 
     client = linode_api4.LinodeClient(os.environ.get('LINODE_TOKEN'))
 
-    result = add_subdomain(module, client)
+    result = execute.get(module.params.get('state'))(module, client)
 
     # use whatever logic you need to determine whether or not this module
     # made any modifications to your target
