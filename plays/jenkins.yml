@@ -1,0 +1,6 @@
+---
+- hosts: jenkins.cody.dp
+  tasks:
+    - jenkins_script:
+        script: 'println(Jenkins.instance.pluginManager.plugins)'
+        url: http://jenkins.cody.dp/
