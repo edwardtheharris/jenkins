@@ -1,6 +1,6 @@
 ---
 - name: Configure the Jenkins container.
-  hosts: all
+  hosts: localhost
   tasks:
     - name: Install Docker in Jenkins container.
       apk:

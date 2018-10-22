@@ -1,16 +1,17 @@
 ---
-- name: Template inventory.
-  template:
-    src: inventory.j2
-    dest: /etc/ansible/hosts
+- name: Put playbook into container.
+  command: >
+            docker
+            cp /opt/roles/jenkins/roles/actual/files/jenkins.yml
+            {{ jenkins_hostname }}:/tmp/jenkins.yml
 
-- name: Copy playbook.
-  copy:
-    src: jenkins.yml
-    dest: /tmp/jenkins.yml
+- name: Install Ansible.
+  command: "docker exec --user root {{ jenkins_hostname }} apk add ansible"
 
 - name: Execute playbook.
-  command: ansible-playbook -i "{{ jenkins_hostname }}" /tmp/jenkins.yml
+  command: >
+              docker exec --user root {{ jenkins_hostname }}
+              ansible-playbook -i /tmp/hosts /tmp/jenkins.yml
   register: result
 
 - debug:
