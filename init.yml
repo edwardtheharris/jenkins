@@ -1,6 +1,25 @@
 ---
 - hosts: localhost
   roles:
+    - edwardtheharris.jenkins.linode
+- hosts: jenkins
+  roles:
+    - edwardtheharris.jenkins.common
+  vars:
+    jenkins_hostname: jenkins.deathpactone.org
+- hosts: jenkins
+  remote_user: duchess
+  pre_tasks:
+    - name: Add a subdomain.
+      linode_domain:
+        state: present
+        domain: deathpactone.org
+        name: 'jenkins'
+        target: "{{ inventory_hostname }}"
+      delegate_to: localhost
+  roles:
     - edwardtheharris.jenkins.actual
-    - edwardtheharris.jenkins.alpha
+  vars:
+    jenkins_hostname: jenkins.deathpactone.org
+    # - edwardtheharris.jenkins.alpha
 ...

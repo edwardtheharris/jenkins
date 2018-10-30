@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  pre_tasks:
+    - name: Set master hostname.
+      set_fact:
+        master_host: jenkins.cody.dp
+        jenkins_repo: git@github.com:edwardtheharris/jenkins-actual.git
+  roles:
+    - jenkins-actual
+  tags:
+    - setup
+...

@@ -1,12 +1,12 @@
-Jenkins Master Node
-===================
+Role Name
+=========
 
-Deploys a Jenkins master node to Linode running ArchLinux.
+A brief description of the role goes here.
 
 Requirements
 ------------
 
-Currently the only requirement is [this](https://github.com/edwardtheharris/ansible) super cool fork of [Ansible](https://github.com/ansible/ansible).
+Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
@@ -23,18 +23,16 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-```yaml
     - hosts: servers
       roles:
          - { role: username.rolename, x: 42 }
-```
 
 License
 -------
 
-Unlicense
+BSD
 
 Author Information
 ------------------
 
-An inveterate pedant and sometimes contributor to other people's software.
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

@@ -1,0 +1,28 @@
+---
+- name: Deploy an ArchLinux Linode.
+  linode:
+    name: jenkins-actual
+    authorized_keys:
+      - "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+    image: linode/arch
+    state: present
+    region: us-west
+    type: g6-nanode-1
+  register: linode
+  run_once: "yes"
+- name: Set some facts.
+  set_fact:
+    master_host: "{{ linode.instances[0].ipv4[0] }}"
+    jenkins_repo: https://github.com/edwardtheharris/jenkins-actual.git
+- name: Add the host to inventory.
+  add_host:
+    name: "{{ linode.instances[0].ipv4[0] }}"
+    groups:
+      - jenkins
+      - linode
+- name: Wait for ssh to become available.
+  wait_for:
+    host: "{{ linode.instances[0].ipv4[0] }}"
+    port: 22
+    state: started
+...
