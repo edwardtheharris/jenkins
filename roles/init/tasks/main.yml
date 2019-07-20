@@ -1,5 +1,38 @@
 ---
+- name: Update pacman.
+  pacman:
+    update_cache: yes
+    upgrade: yes
+- name: Update root ps1.
+  lineinfile:
+    line: "{{ root_psone }}"
+    dest: /root/.bashrc
+    state: present
+    create: yes
 - name: Fix sudoers.
   copy:
     src: sudoers
     dest: /etc/sudoers
+- name: Add jenkins group.
+  group:
+    name: jenkins
+    state: present
+- name: Add user.
+  user:
+    state: present
+    shell: /bin/bash
+    home: "/home/{{ lookup('env', 'USER') }}"
+    name: "{{ lookup('env', 'USER') }}"
+    group: jenkins
+    groups: wheel
+- name: Update user ps1.
+  lineinfile:
+    line: "{{ user_psone }}"
+    dest: "/home/{{ lookup('env', 'USER') }}/.bashrc"
+    state: present
+    create: yes
+- name: Add key based auth.
+  authorized_key:
+    user: "{{ lookup('env', 'USER') }}"
+    key: "{{ lookup('file', lookup('env', 'HOME')+'/.ssh/id_rsa.pub') }}"
+    state: present

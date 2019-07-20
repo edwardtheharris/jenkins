@@ -5,6 +5,10 @@
     - role: linode
       tags:
         - linode
+- name: Init an existing host.
+  hosts: jenkins.brick-house.org
+  remote_user: root
+  roles:
     - role: init
       tags:
         - init
