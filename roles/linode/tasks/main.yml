@@ -2,14 +2,14 @@
 - name: Deploy an ArchLinux Linode.
   linode:
     name: jenkins-actual
-    authorized_keys:
-      - "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
-    image: linode/arch
+    # authorized_keys:
+    #  - "{{ lookup('file', lookup('env', 'HOME')+'/.ssh/id_rsa.pub') }}"
+    # image: linode/arch
     state: present
-    region: us-west
-    type: g6-nanode-1
+    # region: us-west
+    # type: g6-nanode-1
   register: linode
-  run_once: "yes"
+  run_once: yes
 - name: Set some facts.
   set_fact:
     master_host: "{{ linode.instances[0].ipv4[0] }}"

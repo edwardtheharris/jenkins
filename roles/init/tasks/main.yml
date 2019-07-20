@@ -1,0 +1,5 @@
+---
+- name: Fix sudoers.
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
