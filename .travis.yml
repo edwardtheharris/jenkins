@@ -11,7 +11,7 @@ install:
 script:
   # Basic role syntax check
   - ls -l roles/actual/
-  - ansible-playbook --check site.yml
+  - ansible-playbook --check -t common site.yml
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 ...
