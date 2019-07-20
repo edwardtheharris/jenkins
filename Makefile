@@ -8,6 +8,10 @@ check:
 linode:
 	ansible-playbook -t linode site.yml
 
+.PHONY: init
+init:
+	ansible-playbook -t init site.yml
+
 .PHONY: common
 common:
 	ansible-playbook -t common site.yml
