@@ -1,0 +1,37 @@
+---
+- name: Create a linode to operate on.
+  hosts: localhost
+  roles:
+    - role: linode
+      tags:
+        - linode
+- name: Init an existing host.
+  hosts: jenkins.brick-house.org
+  remote_user: root
+  roles:
+    - role: init
+      tags:
+        - init
+- name: Run basic configuration on a Jenkins instance.
+  hosts: jenkins.brick-house.org
+  roles:
+    - role: common
+      tags:
+        - common
+      become: yes
+- hosts: jenkins.brick-house.org
+  remote_user: duchess
+  roles:
+    - role: actual
+  pre_tasks:
+    - name: Add a subdomain.
+      linode_domain:
+        state: present
+        domain: deathpactone.org
+        name: 'jenkins'
+        target: "{{ inventory_hostname }}"
+      delegate_to: localhost
+  vars:
+    jenkins_hostname: jenkins.deathpactone.org
+    # - edwardtheharris.jenkins.alpha
+...

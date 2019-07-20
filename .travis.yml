@@ -7,20 +7,11 @@ addons:
       - python-pip
 install:
   # Install ansible
-  - >
-      git clone --single-branch -b mazer_role_loader
-      https://github.com/edwardtheharris/ansible
-  - pip install -e ansible/
-  - pip install git+https://github.com/ansible/mazer.git
-  - . ansible/hacking/env-setup
-  - mazer install edwardtheharris.jenkins
+  - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
   # Basic role syntax check
   - ls -l roles/actual/
-  - >
-      ansible-playbook
-      roles/actual/tests/test.yml -i
-      roles/actual/tests/inventory --syntax-check
+  - ansible-playbook --check -t common site.yml
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 ...
