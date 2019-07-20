@@ -18,9 +18,8 @@
     - role: common
       tags:
         - common
-  vars:
-    jenkins_hostname: jenkins.brick-house.org
-- hosts: jenkins
+      become: yes
+- hosts: jenkins.brick-house.org
   remote_user: duchess
   roles:
     - role: actual

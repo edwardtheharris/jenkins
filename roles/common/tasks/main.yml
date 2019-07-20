@@ -1,24 +1,12 @@
 ---
 - name: Install some utilities.
   pacman:
-    update_cache: "yes"
+    update_cache: yes
     name: sudo,docker,git
-    state: present
-- name: Create a user.
-  user:
-    name: duchess
-    shell: /bin/bash
-    home: /home/duchess
-    group: docker
-    groups: wheel
-- name: Add authorized key to new user.
-  authorized_key:
-    user: duchess
-    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
     state: present
 - name: Set the hostname.
   hostname:
-    name: "{{ jenkins_hostname }}"
+    name: "{{ inventory_hostname }}"
 - name: Copy updated sudoers.
   copy:
     src: sudoers
