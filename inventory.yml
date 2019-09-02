@@ -4,4 +4,4 @@ all:
     jenkins:
       ansible_host: jenkins.brick-house.org
     worker:
-      ansible_host: worker.brick-house.org
+      ansible_host: worker.jenkins.brick-house.org
