@@ -1,2 +1,19 @@
 ---
-# tasks file for alpha
+- name: Install nginx.
+  pacman:
+    name: nginx
+    state: present
+- name: Start nginx.
+  service:
+    name: nginx
+    state: started
+    enabled: true
+- name: Install pipenv.
+  pip:
+    name: pipenv 
+    state: present
+- name: Start and enable docker service.
+  service:
+    name: docker
+    state: started
+    enabled: yes

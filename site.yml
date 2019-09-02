@@ -6,14 +6,14 @@
       tags:
         - linode
 - name: Init an existing host.
-  hosts: none
+  hosts: init 
   remote_user: root
   roles:
     - role: init
       tags:
         - init
 - name: Run basic configuration on a Jenkins instance.
-  hosts: worker,jenkins 
+  hosts: common 
   roles:
     - role: common
       tags:
