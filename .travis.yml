@@ -13,4 +13,4 @@ notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 before_install:
 - openssl aes-256-cbc -K $encrypted_3d8478623bf6_key -iv $encrypted_3d8478623bf6_iv
-  -in roles/worker/files/id_rsa.travis -out roles/worker/files/id_rsa -d
+  -in roles/common/files/travis.enc -out roles/common/files/travis -d

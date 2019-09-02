@@ -1,4 +1,13 @@
 ---
+- name: Add travis to auth keys.
+  authorized_key:
+    user: duchess
+    key: "{{ item }}"
+    state: present
+  loop:
+    - "{{ lookup('file', 'roles/common/files/travis.pub') }}"
+    - "{{ lookup('file', 'roles/common/files/goldilocks.pub') }}"
+    - "{{ lookup('file', 'roles/common/files/cody.pub') }}"
 - name: Install some utilities.
   pacman:
     update_cache: yes
@@ -22,6 +31,9 @@
   service:
     name: sshd
     state: restarted
+- name: Restart host for Docker.
+  reboot:
+    reboot_timeout: 600
 - name: Start Docker daemon.
   service:
     name: docker
