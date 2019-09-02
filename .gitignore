@@ -1,2 +1,3 @@
 *.swp
 .ansible/
+roles/worker/files/id_rsa

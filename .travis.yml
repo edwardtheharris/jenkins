@@ -1,17 +1,16 @@
----
 language: python
-python: "3.6"
+python: '3.6'
 addons:
   apt:
     packages:
-      - python-pip
+    - python-pip
 install:
-  # Install ansible
-  - pip install git+https://github.com/ansible/ansible#egg=ansible
+- pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
-  # Basic role syntax check
-  - ls -l roles/actual/
-  - ansible-playbook --check -t common site.yml
+- ls -l roles/actual/
+- ansible-playbook --check -t common site.yml
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
-...
+before_install:
+- openssl aes-256-cbc -K $encrypted_3d8478623bf6_key -iv $encrypted_3d8478623bf6_iv
+  -in roles/worker/files/id_rsa.travis -out roles/worker/files/id_rsa -d
