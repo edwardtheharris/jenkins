@@ -4,4 +4,4 @@ Playing around a bit with deploying [Jenkins](https://jenkins.io/) to [Linode](h
 
 ## Build Status
 
-[![Build Status](https://travis-ci.org/edwardtheharris/jenkins.svg?branch=master)](https://travis-ci.org/edwardtheharris/jenkins)
+[![Build Status](https://travis-ci.org/edwardtheharris/jenkins.arch.svg?branch=master)](https://travis-ci.org/edwardtheharris/jenkins.arch)

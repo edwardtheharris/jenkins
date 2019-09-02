@@ -13,7 +13,7 @@
       tags:
         - init
 - name: Run basic configuration on a Jenkins instance.
-  hosts: jenkins 
+  hosts: worker # ,jenkins 
   roles:
     - role: common
       tags:
