@@ -1,0 +1,12 @@
+---
+all:
+  hosts:
+    jenkins:
+      ansible_host: jenkins.brick-house.org
+    worker:
+      ansible_host: worker.jenkins.brick-house.org
+common:
+  hosts:
+    worker.jenkins.brick-house.org:
+    jenkins.brick-house.org:
+

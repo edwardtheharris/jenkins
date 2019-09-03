@@ -1,4 +1,3 @@
----
 language: python
 python: "3.6"
 addons:
@@ -6,12 +5,13 @@ addons:
     packages:
       - python-pip
 install:
-  # Install ansible
   - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
-  # Basic role syntax check
-  - ls -l roles/actual/
-  - ansible-playbook --check -t common site.yml
+  - chmod 0600 roles/common/files/travis
+  - ansible-playbook -u duchess --skip-tags linode --private-key roles/common/files/travis --check site.yml
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
-...
+  webhooks: 
+    - https://galaxy.ansible.com/api/v1/notifications/
+before_install:
+  - openssl aes-256-cbc -K $encrypted_3d8478623bf6_key -iv $encrypted_3d8478623bf6_iv
+    -in roles/common/files/travis.enc -out roles/common/files/travis -d

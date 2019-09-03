@@ -1,0 +1,9 @@
+#!/bin/bash
+
+certbot register -n -m plebis@hotmail.com --agree-tos --eff-email
+
+certbot certonly -n --webroot --cert-name worker -d worker.jenkins.brick-house.org 
+
+mkdir -pv /home/duchess/.docker
+cp -v /etc/letsencrypt/live/worker/*.pem /home/duchess/.docker/
+chown duchess:docker /home/duchess/.docker/*

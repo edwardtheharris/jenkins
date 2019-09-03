@@ -1,0 +1,39 @@
+---
+- name: Set hostname.
+  hostname:
+    name: worker.jenkins.brick-house.org
+- name: Install nginx.
+  pacman:
+    name: nginx
+    state: present
+- name: Start nginx.
+  service:
+    name: nginx
+    state: started
+    enabled: true
+- name: Install certbot.
+  pip:
+    name: certbot 
+    state: present
+- name: Create certs for docker. 
+  script: create-docker-certs
+  args:
+    creates: /etc/letsencrypt/live/worker
+- name: Copy secure docker config.
+  copy:
+    src: docker.service
+    dest: /lib/systemd/system/docker.service
+- name: Start and enable docker service.
+  service:
+    name: docker
+    state: started
+    enabled: yes
+- name: Copy certs for auth.
+  fetch:
+    src: "/home/duchess/.docker/{{ item }}.pem"
+    dest: certs
+  loop:
+    - cert
+    - ca
+    - key
+  
