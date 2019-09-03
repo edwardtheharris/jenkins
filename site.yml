@@ -25,10 +25,12 @@
       tags:
         - worker
       become: yes
-- hosts: jenkins
+- hosts: none 
   remote_user: duchess
   roles:
     - role: actual
+      tags:
+        - actual
   pre_tasks:
     - name: Add a subdomain.
       linode_domain:
