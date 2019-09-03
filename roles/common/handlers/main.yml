@@ -1,2 +1,6 @@
 ---
-# handlers file for common
+- name: netdata
+  service:
+    name: netdata
+    state: started
+    enabled: yes

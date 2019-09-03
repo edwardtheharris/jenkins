@@ -1,5 +1,5 @@
 ---
-- name: Add travis to auth keys.
+- name: Add some auth keys.
   authorized_key:
     user: duchess
     key: "{{ item }}"
@@ -11,8 +11,9 @@
 - name: Install some utilities.
   pacman:
     update_cache: yes
-    name: sudo,docker,git
+    name: sudo,docker,netdata,git
     state: present
+  notify: netdata
 - name: Set the hostname.
   hostname:
     name: "{{ inventory_hostname }}"
