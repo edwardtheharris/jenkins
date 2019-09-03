@@ -5,9 +5,9 @@ addons:
     packages:
       - python-pip
 install:
-  - ls -lah
   - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
+  - chmod 0600 roles/worker/travis
   - ansible-playbook -u duchess --skip-tags linode --private-key roles/common/files/travis --check site.yml
 notifications:
   webhooks: 
