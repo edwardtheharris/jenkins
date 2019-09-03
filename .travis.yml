@@ -5,6 +5,7 @@ addons:
     packages:
       - python-pip
 install:
+  - ls -lah
   - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
   - ansible-playbook --skip-tags linode --private-key roles/common/files/travis --check site.yml
