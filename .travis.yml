@@ -8,7 +8,7 @@ install:
   - ls -lah
   - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
-  - ansible-playbook --skip-tags linode --private-key roles/common/files/travis --check site.yml
+  - ansible-playbook -u duchess --skip-tags linode --private-key roles/common/files/travis --check site.yml
 notifications:
   webhooks: 
     - https://galaxy.ansible.com/api/v1/notifications/
