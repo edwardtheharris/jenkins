@@ -19,6 +19,12 @@
       tags:
         - common
       become: yes
+- hosts: worker
+  roles:
+    - role: worker
+      tags:
+        - worker
+      become: yes
 - hosts: jenkins
   remote_user: duchess
   roles:
