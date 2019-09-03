@@ -7,7 +7,7 @@ addons:
 install:
   - pip install git+https://github.com/ansible/ansible#egg=ansible
 script:
-  - ansible-playbook --private-key roles/common/files/travis --check -t common site.yml
+  - ansible-playbook --skip-tags linode --private-key roles/common/files/travis --check site.yml
 notifications:
   webhooks: 
     - https://galaxy.ansible.com/api/v1/notifications/
