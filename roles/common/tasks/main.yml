@@ -11,7 +11,7 @@
 - name: Install some utilities.
   pacman:
     update_cache: yes
-    name: sudo,docker,netdata,git
+    name: sudo,docker,netdata,git,python,python-pip
     state: present
   notify: netdata
 - name: Set the hostname.
